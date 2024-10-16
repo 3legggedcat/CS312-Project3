@@ -1,0 +1,47 @@
+<!--Heading-->
+<h1>Create a New Post</h1>
+<!-- Form to create a new post-->
+<form action="/new-post" method="POST">
+    <div class="form-group">
+        <!-- username -->
+        <label for="name">Your Name</label>
+        <input type="text" name="name" placeholder="Your Name" required><br>
+        <!-- user post title -->
+        <label for="title">Post Title</label>
+        <input type="text" name="title" placeholder="Post Title" required><br>
+        <!--post content area-->
+        <label for="body">Post Content</label>
+        <textarea name="body" placeholder="Write your post here" required></textarea><br>
+        <button type="submit">Create Post</button>
+    </div>
+</form>
+<!--Heading -->
+<h1>All Posts</h1>
+<!--Check any posts -->
+<% if (posts.length > 0) { %>
+    <!-- loop through post-->
+    <% posts.forEach(post => { %>
+        <div class="post">
+            <!-- title-->
+            <h2><%= post.title %></h2>
+            <!-- body-->
+            <p><%= post.body %></p>
+            <!-- user information aabout the post-->
+            <p><small>Posted by <%= post.name %> on <%= post.time %></small></p>
+
+            <!--edit and Delete Buttons -->
+            <div class="post-actions">
+                <form action="/edit/<%= post.id %>" method="GET" style="display: inline;">
+                    <button type="submit" class="btn-edit">Edit</button>
+                </form>
+                <form action="/delete/<%= post.id %>" method="POST" style="display: inline;">
+                    <button type="submit" class="btn-delete">Delete</button>
+                </form>
+            </div>
+        </div>
+    <% }) %>
+<% } else { %>
+    <!-- no post-->
+    <p>No posts yet. Create the first one!</p>
+<% } %>
+
